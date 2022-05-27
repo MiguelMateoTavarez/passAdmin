@@ -1,9 +1,10 @@
 import os
 from getpass import getpass
+from pydoc import describe
 from tabulate import tabulate #Importado con pip install tabulate
 from connection import *
 import user
-from user import *
+import password
 
 connection = connect()
 createTables(connection)
@@ -45,11 +46,11 @@ def menu():
         option = input('Please enter an option: ')
 
         if option == '1':
-            print('Adding a password')
+            newPassword()
         elif option == '2':
-            print('Showing a passwords')
+            showPasswords()
         elif option == '3':
-            print('Watching a password')
+            findPassword()
         elif option == '4':
             print('Modifying a password')
         elif option == '5':
@@ -58,5 +59,40 @@ def menu():
             break
         else:
             print('You did not enter a valid option')
+
+def newPassword():
+    name = input('Name: ')
+    url = input('Url: ')
+    userName = input('Username: ')
+    passw = input('Pass: ')
+    description = input ('Descrition: ')
+
+    result = password.register(name, url, userName, passw, description)
+    print(result)
+
+def showPasswords():
+    dates = password.show()
+    newDates = []
+    headers = ['ID', 'NAME', 'URL', 'USER', 'PASSWORD', 'DESCRIPTION']
+    for date in dates:
+        switch = list(date)
+        switch[4] = '************'
+        newDates.append(switch)
+    table = tabulate(newDates, headers, tablefmt='fancy_grid')
+    print('\t\t\t\tAll passwords')
+    print(table)
+
+def findPassword():
+    masterPass = getpass('Password: ')
+    response = user.validatePassword(1, masterPass)
+    if (len(response)) == 0:
+        print('Worng password')
+    else:
+        id = input('Ingrese el id de clave a buscar: ')
+        dates = password.find(id)
+        headers = ['ID', 'NAME', 'URL', 'USER', 'PASSWORD', 'DESCRIPTION']
+        table = tabulate(dates, headers, tablefmt='fancy_grid')
+        print('\t\t\t\tAll passwords')
+        print(table)
 
 start()
