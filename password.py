@@ -12,9 +12,9 @@ def register(name, url, userName, password, description):
         connection.commit()
         connection.close()
         
-        return 'Register successfuly'
+        return 'It has been successfully registered'
     except Error as err:
-        return 'Ha ocurrido un error ' + str(err)
+        return 'An error has occurred ' + str(err)
 
 def show():
     dates = []
@@ -26,7 +26,7 @@ def show():
         dates = cursor.fetchall()
         connection.close()
     except Error as err:
-        print('Ha ocurrido un error ' + str(err))
+        print('An error has occurred ' + str(err))
     
     return dates
 
@@ -40,7 +40,7 @@ def find(id):
         dates = cursor.fetchall()
         connection.close()
     except Error as err:
-        print('Ha ocurrido un error ' + str(err))
+        print('An error has occurred ' + str(err))
     
     return dates
 
@@ -54,10 +54,10 @@ def modify(id, name, url, userName, password, description):
         connection.commit()
         connection.close()
 
-        return 'Se modifico la contrasena'
+        return 'The password has been changed'
 
     except Error as err:
-        return 'Ha ocurrido un error '+ str(err)
+        return 'An error has occurred '+ str(err)
 
 def delete(id):
     try:
@@ -68,6 +68,6 @@ def delete(id):
         connection.commit()
         connection.close()
 
-        return 'Se ha eliminado la clave'
+        return 'The password has been deleted'
     except Error as err:
-        return 'Ha ocurrido un error '+ str(err)
+        return 'An error has occurred '+ str(err)
