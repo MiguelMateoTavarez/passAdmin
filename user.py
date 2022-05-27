@@ -22,9 +22,9 @@ def register(name, lastName, masterPass):
         connection.commit()
         connection.close()
 
-        return 'Register successfuly'
+        return 'It has been successfully registered'
     except Error as err:
-        return 'Ha ocurridlo un error ' + str(err)
+        return 'An error has occurred ' + str(err)
 
 def validatePassword(id, masterPass):
     try:
@@ -38,4 +38,4 @@ def validatePassword(id, masterPass):
 
         return dates
     except Error as err:
-        return 'Ha ocurrido un error ' + str(err)
+        return 'An error has occurred ' + str(err)

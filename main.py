@@ -20,7 +20,7 @@ def start():
 
         result = user.register(name, lastName, masterPass)
 
-        if result == 'Register successfuly':
+        if result == 'It has been successfully registered':
             print(f'Welcome {name}')
             menu()
         else:
@@ -52,9 +52,9 @@ def menu():
         elif option == '3':
             findPassword()
         elif option == '4':
-            print('Modifying a password')
+            modifyPassword()
         elif option == '5':
-            print('Deleting a password')
+            deletePassword()
         elif option == '6':
             break
         else:
@@ -88,11 +88,36 @@ def findPassword():
     if (len(response)) == 0:
         print('Worng password')
     else:
-        id = input('Ingrese el id de clave a buscar: ')
+        id = input('Enter the key id to search: ')
         dates = password.find(id)
         headers = ['ID', 'NAME', 'URL', 'USER', 'PASSWORD', 'DESCRIPTION']
         table = tabulate(dates, headers, tablefmt='fancy_grid')
         print('\t\t\t\tAll passwords')
         print(table)
+
+def modifyPassword():
+    masterPass = getpass('Password: ')
+    response = user.validatePassword(1, masterPass)
+    if (len(response)) == 0:
+        print('Worng password')
+    else:
+        id = input('Enter the key id to edit: ')
+        name = input('New name: ')
+        url = input('New url: ')
+        userName = input('New username: ')
+        passw = input('New pass: ')
+        description = input('New description: ')
+        responde = password.modify(id, name, url, userName, passw, description)
+        print(responde)
+
+def deletePassword():
+    masterPass = getpass('Password: ')
+    response = user.validatePassword(1, masterPass)
+    if (len(response)) == 0:
+        print('Worng password')
+    else:
+        id = input('Enter the key id to delete: ')
+        response = password.delete(id)
+        print(response)
 
 start()
