@@ -1,5 +1,6 @@
 import os
 from getpass import getpass
+from pydoc import describe
 from tabulate import tabulate #Importado con pip install tabulate
 from connection import *
 import user
@@ -45,7 +46,7 @@ def menu():
         option = input('Please enter an option: ')
 
         if option == '1':
-            print('Adding a password')
+            newPassword()
         elif option == '2':
             print('Showing a passwords')
         elif option == '3':
@@ -59,4 +60,13 @@ def menu():
         else:
             print('You did not enter a valid option')
 
+def newPassword():
+    name = input('Name: ')
+    url = input('Url: ')
+    userName = input('Username: ')
+    password = input('Pass: ')
+    description = input ('Descrition')
+
+    result = password.register(name, url, userName, password, description)
+    print(result)
 start()
