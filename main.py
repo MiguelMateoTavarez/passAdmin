@@ -2,9 +2,36 @@ import os
 from getpass import getpass
 from tabulate import tabulate #Importado con pip install tabulate
 from connection import *
+import user
+from user import *
 
 connection = connect()
 createTables(connection)
+
+def start():
+    os.system('cls')
+    validate = user.validateUser()
+    if len(validate) == 0:
+        print('Welcome, login please')
+        name = input('Name: ')
+        lastName = input('Lastname: ')
+        masterPass = getpass('Password: ')
+
+        result = user.register(name, lastName, masterPass)
+
+        if result == 'Register successfuly':
+            print(f'Welcome {name}')
+            menu()
+        else:
+            print(result)
+    else:
+        masterPass = getpass('Password: ')
+        result = user.validatePassword(1, masterPass)
+        if len(result) == 0:
+            print('Wrong id or password')
+        else:
+            print('Welcome!')
+            menu()
 
 def menu():
     while True:
@@ -32,4 +59,4 @@ def menu():
         else:
             print('You did not enter a valid option')
 
-menu()
+start()
